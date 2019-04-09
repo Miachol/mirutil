@@ -18,10 +18,13 @@
 #'
 #' @export
 read_mixcr_dataset <- function(metadata, cores = 1, ...) {
-  found_cols <- intersect(.req_cols_meta, colnames(metadata))
-
-  if (!setequal(.req_cols_meta, found_cols)) {
-    missing_cols <- paste0(setdiff(found_cols, .req_cols_meta), collapse = ",")
+  cat("Enter Function read_mixcr_dataset:", sep = "\n")
+  cat(colnames(metadata), sep = "\n")
+  cat("Required cols:", sep = "\n")
+  cat(.req_cols_meta, sep = "\n")
+  index <- .req_cols_meta %in% colnames(metadata)
+  if (!all(index)) {
+    missing_cols <- paste0(.req_cols_meta[!index], collapse = ",")
     stop(paste0("The following required columns in metadata are missing: ",
                 missing_cols))
   }
@@ -85,12 +88,10 @@ read_mixcr_sample <- function(filename, dropExtraColumns = F, verbose = F) {
   data <- .fread_gz(filename)
 
   # check missing cols
-  found_cols <- intersect(.req_cols_mixcr, colnames(data))
-
-  if (!setequal(.req_cols_mixcr, found_cols)) {
-    missing_cols <- paste0(setdiff(found_cols, .req_cols_mixcr), collapse = ",")
-    stop(paste0("The following required columns in sample ",
-                sample_id,
+  index <- .req_cols_meta %in% colnames(metadata)
+  if (!all(index)) {
+    missing_cols <- paste0(.req_cols_meta[!index], collapse = ",")
+    stop(paste0("The following required columns ",
                 " are missing: ",
                 missing_cols))
   }

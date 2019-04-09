@@ -5,8 +5,8 @@
 \title{Computes distances between samples in a dataset based on pre-computed
 rearrangement statistics}
 \usage{
-compute_rearr_stat_dist(stats_bundle, value.types = c("reads", "clonotypes"),
-  add.pseudocounts = F, cores = 2)
+compute_rearr_stat_dist(stats_bundle, value.types = c("reads",
+  "clonotypes"), add.pseudocounts = F, cores = 2)
 }
 \arguments{
 \item{stats_bundle}{a set of rearrangement statistics produced by
